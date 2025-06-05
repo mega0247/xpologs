@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Representative Confirmation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .form-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #007BFF;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Confirm Your Interest</h2>
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="Email Address" required />
+      <input type="tel" name="phone" placeholder="Phone Number" required />
+
+      <label>Are you still interested?</label>
+      <select name="interest" required>
+        <option value="Yes">Yes, I’m interested</option>
+        <option value="No">No, I’m no longer interested</option>
+      </select>
+
+      <label>Available Start Date</label>
+      <input type="date" name="start_date" />
+
+      <label>Comments or Questions</label>
+      <textarea name="message" rows="4"></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  <script>
+    // Initialize EmailJS
+    emailjs.init("Ca4c7OMBcb7RWPCev"); // Replace with your EmailJS User ID
+
+    document.getElementById("contact-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      emailjs.sendForm("service_nbvrm1m", "template_dtvnj5q", this)
+        .then(function() {
+          alert("Form submitted successfully!");
+          document.getElementById("contact-form").reset();
+        }, function(error) {
+          alert("Something went wrong, please try again.");
+        });
+    });
+
+    // Block right click and inspect
+    document.addEventListener("contextmenu", function(e) {
+      e.preventDefault();
+    });
+    document.addEventListener("keydown", function(e) {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S' || e.key === 'i' || e.key === 'I')) {
+        e.preventDefault();
+      }
+      if (e.keyCode === 123) { // F12
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
