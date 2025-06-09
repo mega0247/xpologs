@@ -55,6 +55,17 @@
       <input type="email" name="email" placeholder="Email Address" required />
       <input type="tel" name="phone" placeholder="Phone Number" required />
 
+      <label>Select Job Position</label>
+      <select name="job_position" required>
+        <option value="" disabled selected>Select a job</option>
+        <option value="Data Entry Clerk">Data Entry Clerk</option>
+        <option value="Customer Service Representatives">Customer Service Representatives</option>
+        <option value="Administrative Assistant">Administrative Assistant</option>
+        <option value="Accounts Payable Manager">Accounts Payable Manager</option>
+        <option value="Payroll Assistant">Payroll Assistant</option>
+        <option value="Remote Distribution">Remote Distribution</option>
+      </select>
+
       <label>Are you still interested?</label>
       <select name="interest" required>
         <option value="Yes">Yes, I’m interested</option>
@@ -74,12 +85,12 @@
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
   <script>
     // Initialize EmailJS
-    emailjs.init("Ca4c7OMBcb7RWPCev"); // Replace with your EmailJS User ID
+    emailjs.init("6vLDo2oIiDbQ_MSvj"); // Replace with your EmailJS User ID
 
     document.getElementById("contact-form").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      emailjs.sendForm("service_nbvrm1m", "template_dtvnj5q", this)
+      emailjs.sendForm("service_w789vzg", "template_8k50kda", this)
         .then(function() {
           alert("Form submitted successfully!");
           document.getElementById("contact-form").reset();
@@ -93,10 +104,7 @@
       e.preventDefault();
     });
     document.addEventListener("keydown", function(e) {
-      if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S' || e.key === 'i' || e.key === 'I')) {
-        e.preventDefault();
-      }
-      if (e.keyCode === 123) { // F12
+      if (e.ctrlKey && ['u', 's', 'i'].includes(e.key.toLowerCase()) || e.keyCode === 123) {
         e.preventDefault();
       }
     });
