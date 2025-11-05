@@ -44,7 +44,6 @@
   <h1 id="headline">Start work within the week</h1>
   <h3>(No experience necessary – Apply in 1 minute)</h3>
 
-  <!-- FORMS -->
   <div class="form-container">
     <form id="zip-form">
       <label><strong>CHECK FOR AN OPENING NEAR YOU</strong><br><small>(Enter your ZIP code)</small></label>
@@ -54,7 +53,7 @@
 
     <form id="info-form" style="display:none;">
       <input name="firstName" placeholder="First Name" required>
-      <input name="lastName"  placeholder="Last Name"  required>
+      <input name="lastName" placeholder="Last Name" required>
       <input name="email" type="email" placeholder="Email" required>
       <input name="phone" placeholder="Phone Number to Text You" required>
       <select name="position" required>
@@ -62,10 +61,10 @@
         <option>Customer Service Representative</option>
         <option>Administrative Assistant</option>
         <option>Data Entry Clerk</option>
-		<option>Billing Clerk</option>
+        <option>Billing Clerk</option>
         <option>Delivery Driver</option>
         <option>Feedback Specialist</option>
-		<option>Remote Order Processor</option>
+        <option>Remote Order Processor</option>
         <option>Account Payable Clerk</option>
         <option>Accounts Payable And Receivable Clerk</option>
       </select>
@@ -82,7 +81,7 @@
 </main>
 
 <footer>
-  &copy; <span id="year"></span> All rights reserved.
+  &copy; <span id="year"></span> All rights reserved. | Privacy Policy | Terms & Conditions
 </footer>
 
 <script>
@@ -93,12 +92,11 @@ document.getElementById("zip-form").addEventListener("submit", async e=>{
   const zip=document.getElementById("zip").value.trim();
   try{
     const r=await fetch(`https://api.zippopotam.us/us/${zip}`);
-    if(!r.ok)throw new Error();
+    if(!r.ok) throw new Error();
     const place=(await r.json()).places[0];
     const city=place["place name"],state=place["state abbreviation"];
 
-    document.getElementById("headline").textContent=
-      `Positions are available in ${city}, ${state}`;
+    document.getElementById("headline").textContent=`Positions are available in ${city}, ${state}`;
     document.getElementById("zip-form").style.display="none";
     document.getElementById("info-form").style.display="block";
 
@@ -127,28 +125,25 @@ document.getElementById("zip-form").addEventListener("submit", async e=>{
   }
 });
 
-/* ✅ FIXED EmailJS PARAM NAMES */
-document.getElementById("info-form").addEventListener("submit",function(e){
+document.getElementById("info-form").addEventListener("submit", function(e){
   e.preventDefault();
-  const params={
-    name:this.firstName.value.trim()+" "+this.lastName.value.trim(),
-    email:this.email.value.trim(),
-    phone:this.phone.value.trim(),
-    position:this.position.value
+  const params = {
+    fullName: this.firstName.value.trim() + " " + this.lastName.value.trim(),
+    Email: this.email.value.trim(),
+    Phone: this.phone.value.trim(),
+    Position: this.position.value
   };
-  emailjs.send("service_ryld62j","template_57tgtsk",params)
+
+  emailjs.send("service_ryld62j", "template_57tgtsk", params, "HM4Qfc5QRIKShVW5W")
     .then(()=>{
       this.style.display="none";
       document.getElementById("success-msg").style.display="block";
     })
     .catch(err=>{
-      console.error("EmailJS error:",err);
+      console.error("EmailJS error:", err);
       alert("Submission failed. Please try again.");
     });
 });
-
-/* footer year */
-document.getElementById("year").textContent=new Date().getFullYear();
 </script>
 </body>
 </html>
