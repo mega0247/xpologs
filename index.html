@@ -2,111 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Customer Representative Confirmation</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .form-container {
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
-      width: 100%;
-    }
-    h2 {
-      margin-top: 0;
-    }
-    input, textarea, select {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background: #007BFF;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover {
-      background: #0056b3;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirm Your Interest</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS Public Key
+    })();
+  </script>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Confirm Your Interest</h2>
-    <form id="contact-form">
+  <div class="container">
+    <h1>Join Our Team</h1>
+    <p>Fill out the form below to apply.</p>
+    <form id="jobForm">
       <input type="text" name="name" placeholder="Full Name" required />
       <input type="email" name="email" placeholder="Email Address" required />
-      <input type="tel" name="phone" placeholder="Phone Number" required />
+      <input type="text" name="phone" placeholder="Phone Number" required />
 
-      <label>Select Job Position</label>
-      <select name="job_position" required>
-        <option value="" disabled selected>Select a job</option>
-        <option value="Data Entry Clerk">Data Entry Clerk</option>
-        <option value="Customer Service Representatives">Customer Service Representatives</option>
-        <option value="Administrative Assistant">Administrative Assistant</option>
-        <option value="Accounts Payable Manager">Accounts Payable Manager</option>
-        <option value="Payroll Assistant">Payroll Assistant</option>
-        <option value="Remote Distribution">Remote Distribution</option>
-      </select>
+      <div class="address-group">
+        <input type="text" name="city" placeholder="City" required />
+        <input type="text" name="state" placeholder="State" required />
+        <input type="text" name="zip" placeholder="Zip Code" required />
+      </div>
 
-      <label>Are you still interested?</label>
-      <select name="interest" required>
-        <option value="Yes">Yes, I’m interested</option>
-        <option value="No">No, I’m no longer interested</option>
-      </select>
-
-      <label>Available Start Date</label>
-      <input type="date" name="start_date" />
-
-      <label>Comments or Questions</label>
-      <textarea name="message" rows="4"></textarea>
-
-      <button type="submit">Submit</button>
+      <textarea name="message" placeholder="Why would you be a great fit for the position?" required></textarea>
+      <button type="submit">Submit Application</button>
     </form>
+    <div id="responseMsg"></div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
   <script>
-    // Initialize EmailJS
-    emailjs.init("6vLDo2oIiDbQ_MSvj"); // Replace with your EmailJS User ID
-
-    document.getElementById("contact-form").addEventListener("submit", function(e) {
+    document.getElementById('jobForm').addEventListener('submit', function(e) {
       e.preventDefault();
-
-      emailjs.sendForm("service_w789vzg", "template_8k50kda", this)
+      emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
         .then(function() {
-          alert("Form submitted successfully!");
-          document.getElementById("contact-form").reset();
+          document.getElementById('responseMsg').textContent = '✅ Application sent successfully!';
+          document.getElementById('jobForm').reset();
         }, function(error) {
-          alert("Something went wrong, please try again.");
+          document.getElementById('responseMsg').textContent = '❌ Failed to send: ' + error.text;
         });
-    });
-
-    // Block right click and inspect
-    document.addEventListener("contextmenu", function(e) {
-      e.preventDefault();
-    });
-    document.addEventListener("keydown", function(e) {
-      if (e.ctrlKey && ['u', 's', 'i'].includes(e.key.toLowerCase()) || e.keyCode === 123) {
-        e.preventDefault();
-      }
     });
   </script>
 </body>
